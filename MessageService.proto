@@ -3,8 +3,13 @@ package com.aviasoft.aviabot;
 
 message MessageRequest {
   string text = 1;
+  repeated string themes = 2;
+}
+
+message MessageResponse {
+  string text = 1;
 }
 
 service MessageService {
-  rpc sendMessage(MessageRequest) returns (MessageRequest);
+  rpc ask(MessageRequest) returns (MessageResponse);
 }
