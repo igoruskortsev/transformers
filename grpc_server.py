@@ -12,7 +12,7 @@ class MessageService():
         #     text="request.text"
         # )
         result = MessageService_pb2.MessageResponse(
-            transformer.func(
+            text = transformer.func(
                 text = request.text,
                 labels = request.themes
             )
