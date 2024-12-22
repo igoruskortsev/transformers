@@ -1,13 +1,36 @@
-from transformers import pipeline, Pipeline
+from transformers import pipeline, Pipeline, XLMRobertaTokenizer
 
 
-def func(text, labels):
-    classifier: Pipeline = pipeline("zero-shot-classification", model="model/roberta-large")
-    results:dict = classifier(text, labels)
+def func(text: str, labels: list):
+    tokenizer = XLMRobertaTokenizer.from_pretrained(
+        "joeddav/xlm-roberta-large-xnli",
+        use_fast=False
+    )
+
+    classifier: Pipeline = pipeline(
+        "zero-shot-classification",
+        model="joeddav/xlm-roberta-large-xnli",
+        tokenizer=tokenizer
+    )
+    results: dict = classifier(text, labels)
     # res:dict = results[0]
-    labels:list = results.get('labels')
-    scores:list = results.get('scores')
+    labels: list = results.get('labels')
+    scores: list = results.get('scores')
     print(text)
     print('Это ' + labels[0] + ' с вероятностью ')
     print(scores[0])
     return labels[0]
+
+
+func(
+    "Отпало колесо",
+    [
+        "Техническое обслуживание/Неисправность салона/Кухня",
+        "Техническое обслуживание/Повреждение ВС/Другое",
+        "Опоздание/неявка на вылет",
+        "Наземное обслуживание/АЭРОМАР/Отсутствие порций питания/напитков (класс обсл-ния)/Отсутствие БКО",
+        "Без темы",
+        "Техническое обслуживание/Неисправность салона/Кресло",
+        "Техническое обслуживание/Техническое состояние ВС/Неисправность систем ВС"
+    ]
+)
