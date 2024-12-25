@@ -12,7 +12,7 @@ class MessageService():
         #     text="request.text"
         # )
         result = MessageService_pb2.MessageResponse(
-            text = transformer.func(
+            themes = transformer.func(
                 text = request.text,
                 labels = request.themes
             )
@@ -32,37 +32,5 @@ def serve():
 if __name__ == "__main__":
     logging.basicConfig()
     serve()
-    # print(transformer.func(
-    #     "request",
-    #     [
-    #         "Техническое обслуживание/Неисправность салона/Кухня",
-    #         "Техническое обслуживание/Повреждение ВС/Другое",
-    #         "Опоздание/неявка на вылет",
-    #         "Наземное обслуживание/АЭРОМАР/Отсутствие порций питания/напитков (класс обсл-ния)/Отсутствие БКО",
-    #         "Без темы",
-    #         "Техническое обслуживание/Неисправность салона/Кресло",
-    #         "Техническое обслуживание/Техническое состояние ВС/Неисправность систем ВС"
-    #     ]
-    # )
-    # )
 
-    # def run():
-    #     with grpc.insecure_channel('localhost:8086') as channel:
-    #         stub = MessageService_pb2_grpc.MessageServiceStub(channel)
-    #
-    #         response = stub.sendMessage(MessageService_pb2.MessageRequest(text = 'Hi!!!'))
-    #
-    #     print('answer')
-    #     print(response)
-    #
-    # run()
-
-# [
-#                     "Техническое обслуживание/Неисправность салона/Кухня",
-#                     "Техническое обслуживание/Повреждение ВС/Другое",
-#                     "Опоздание/неявка на вылет",
-#                     "Наземное обслуживание/АЭРОМАР/Отсутствие порций питания/напитков (класс обсл-ния)/Отсутствие БКО",
-#                     "Без темы",
-#                     "Техническое обслуживание/Неисправность салона/Кресло",
-#                     "Техническое обслуживание/Техническое состояние ВС/Неисправность систем ВС"
-#                 ]
+ # python -m grpc_tools.protoc --proto_path=. --python_out=. --pyi_out=. --grpc_python_out=. MessageService.proto

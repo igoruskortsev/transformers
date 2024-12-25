@@ -7,7 +7,7 @@ message MessageRequest {
 }
 
 message MessageResponse {
-  string text = 1;
+  repeated string themes = 1;
 }
 
 service MessageService {
